@@ -43,11 +43,6 @@ if(!defined('PLUGINPREFIX_URL')){
     define('PLUGINPREFIX_URL', plugins_url('', __FILE__));
 }
 
-function wporg_filter_title( $title ) {
-    return 'The ' . $title . ' was Filtered';
-}
-add_filter( 'the_title', 'wporg_filter_title' );
-
 if ( is_admin() ) {
     // we are in admin mode
     include PLUGINPREFIX_DIR_PATH . 'admin/admin-core.php';
