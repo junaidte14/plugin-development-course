@@ -43,6 +43,9 @@ if(!defined('PLUGINPREFIX_URL')){
     define('PLUGINPREFIX_URL', plugins_url('', __FILE__));
 }
 
+// file containing the core common functionality
+include PLUGINPREFIX_DIR_PATH . 'includes/common-core.php';
+
 if ( is_admin() ) {
     // we are in admin mode
     include PLUGINPREFIX_DIR_PATH . 'admin/admin-core.php';
