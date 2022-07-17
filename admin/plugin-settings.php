@@ -23,6 +23,8 @@
    echo PLUGINPREFIX_DIR_URL;
    echo '<br>';
    echo PLUGINPREFIX_URL;
+
+   do_action( 'pluginprefix_after_settings_page_html' );
 ?>
 
 <h2>My Plugin Settings Page:</h2>
