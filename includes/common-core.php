@@ -37,17 +37,33 @@ function pluginprefix_add_content_using_custom_hook(){
 }
 add_action('pluginprefix_after_settings_page_html', 'pluginprefix_add_content_using_custom_hook');
 
-//changing custom post arguments using a custom filter hook
-
-function pluginprefix_change_post_type_arguments($post_type_arguments){
-    $post_type_arguments['labels'] = array(
-        'name'          => __('eBooks', 'pluginprefix'),
-        'singular_name' => __('eBook', 'pluginprefix'),
-        'add_new' => __('Add New eBook', 'pluginprefix'),
-        'add_new_item' => __('Add New eBook', 'pluginprefix'),
-    );
-    return $post_type_arguments;
+function pluginprefix_custom_box_html($post){
+    //var_dump($post);
+    $current_book_author = get_post_meta( $post->ID, '_pluginprefix_book_author', true );
+    ?>
+    <label for="pluginprefix_book_author">Book Author Name:</label>
+    <input name="pluginprefix_book_author" id="pluginprefix_book_author" value="<?php echo $current_book_author;?>" />
+    <?php
 }
-add_filter('pluginprefix_book_post_type_arguments', 'pluginprefix_change_post_type_arguments');
 
+function pluginprefix_add_meta_box(){
+    add_meta_box(
+        'pluginprefix_box_id',                 // Unique ID
+        'Custom Meta Box Title',      // Box title
+        'pluginprefix_custom_box_html',  // Content callback, must be of type callable
+        'book'                            // Post type
+    );
+}
+add_action('add_meta_boxes', 'pluginprefix_add_meta_box');
+
+function pluginprefix_save_postdata( $post_id ) {
+    if ( array_key_exists( 'pluginprefix_book_author', $_POST ) ) {
+        update_post_meta(
+            $post_id,
+            '_pluginprefix_book_author',
+            $_POST['pluginprefix_book_author']
+        );
+    }
+}
+add_action( 'save_post', 'pluginprefix_save_postdata' );
 ?>

@@ -25,6 +25,13 @@
    echo PLUGINPREFIX_URL;
 
    do_action( 'pluginprefix_after_settings_page_html' );
+
+   //add_post_meta(154, 'my-custom-key', 'any custom value', true);
+
+   //$response = update_post_meta(154, 'new-key', 'another value', true);
+
+   $response = delete_post_meta(154, 'my-custom-key');
+   var_dump($response);
 ?>
 
 <h2>My Plugin Settings Page:</h2>
