@@ -100,4 +100,30 @@ function pluginprefix_save_postdata( $post_id ) {
     );
 }
 add_action( 'save_post', 'pluginprefix_save_postdata' );
+
+//Defining custom shortcode
+add_shortcode('pluginprefix_myshortcode', 'pluginprefix_shortcode');
+function pluginprefix_shortcode( $atts = [], $content = null) {
+    // normalize attribute keys, lowercase
+    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+
+    // override default attributes with user attributes
+    $wporg_atts = shortcode_atts(
+        array(
+            'title' => 'My Plugin',
+            'subtitle' => 'This is Subtitle'
+        ), $atts, $tag
+    );
+
+
+    $output = '<div class="my-shortcode-content">';
+    $output .= '<h2>' . $wporg_atts['title'] . '</h2>';
+    $output .= '<h4>' . $wporg_atts['subtitle'] . '</h4>';
+    if(!is_null($content)){
+        $output .= apply_filters('the_content', $content);
+    }
+    $output .= '</div>';
+    return $output;
+}
+
 ?>

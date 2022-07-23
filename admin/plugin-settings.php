@@ -1,38 +1,30 @@
 <?php
-   echo plugins_url('', __FILE__);
-   echo '<br>';
-   echo plugin_dir_url( __FILE__ );
-   echo '<br>';
-   echo plugin_dir_path( __FILE__ );
-   echo '<br>';
-   echo plugin_basename( __FILE__ );
+// check user capabilities
+if ( !current_user_can( 'manage_options' ) ) {
+    return;
+}
 
-   echo '<br>';
-   echo PLUGINPREFIX_DIR_PATH;
+// WordPress will add the "settings-updated" $_GET parameter to the url
+if ( isset( $_GET['settings-updated'] ) ) {
+    // add settings saved message with the class of "updated"
+    add_settings_error( 'pluginprefix_messages', 'pluginprefix_message', __( 'Settings Saved', 'pluginprefix' ), 'updated' );
+}
 
-   echo '<br>';
-   echo PLUGINPREFIX_DIR_PATH . 'uninstall.php';
-   echo '<br>';
-   echo PLUGINPREFIX_DIR_PATH . 'includes/test.php';
-
-   echo '<br>';
-   echo '<br>';
-   echo '<br>';
-   echo PLUGINPREFIX_DIR_PATH;
-   echo '<br>';
-   echo PLUGINPREFIX_DIR_URL;
-   echo '<br>';
-   echo PLUGINPREFIX_URL;
-
-   do_action( 'pluginprefix_after_settings_page_html' );
-
-   //add_post_meta(154, 'my-custom-key', 'any custom value', true);
-
-   //$response = update_post_meta(154, 'new-key', 'another value', true);
-
-   $response = delete_post_meta(154, 'my-custom-key');
-   var_dump($response);
+// show error/update messages
+settings_errors( 'pluginprefix_messages' );
 ?>
-
-<h2>My Plugin Settings Page:</h2>
-<p>Testing menu button functionality.</p>
+<div class="wrap">
+    <form action="options.php" method="post">
+        <?php
+        // output security fields for the registered setting "submenu"
+        settings_fields( 'submenu' );
+        // output setting sections and their fields
+        // (sections are registered for "wporg", each field is registered to a specific section)
+        do_settings_sections( 'submenu' );
+        //custom hook to define custom settings on this page
+        do_action( 'pluginprefix_after_settings_page_html' );
+        // output save settings button
+        submit_button( 'Save Settings' );
+        ?>
+    </form>
+</div>
