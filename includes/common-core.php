@@ -14,10 +14,39 @@ function pluginprefix_setup_post_type() {
         'public'      => true,
         'has_archive' => true,
         'rewrite'     => array( 'slug' => 'codo_books' ),
+        'taxonomies' => array('ebook-category')
     );
     register_post_type( 'book',  apply_filters('pluginprefix_book_post_type_arguments', $post_type_arguments)); 
 } 
 add_action( 'init', 'pluginprefix_setup_post_type' );
+
+//code to define a custom taxonomy
+
+function pluginprefix_register_taxonomy_ebooks_categories() {
+    $labels = array(
+        'name'              => _x( 'Book Categories', 'pluginprefix' ),
+        'singular_name'     => _x( 'Book Category', 'pluginprefix' ),
+        'search_items'      => __( 'Search Book Categories' ),
+        'all_items'         => __( 'All Book Categories' ),
+        'parent_item'       => __( 'Parent Book Category' ),
+        'parent_item_colon' => __( 'Parent Book Category:' ),
+        'edit_item'         => __( 'Edit Book Category' ),
+        'update_item'       => __( 'Update Book Category' ),
+        'add_new_item'      => __( 'Add New Book Category' ),
+        'new_item_name'     => __( 'New Book Category Name' ),
+        'menu_name'         => __( 'Book Category' ),
+    );
+    $args   = array(
+        'hierarchical'      => true, // make it hierarchical (like categories)
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => [ 'slug' => 'book-category' ],
+    );
+    register_taxonomy( 'book-category', [ 'book' ], $args );
+}
+add_action( 'init', 'pluginprefix_register_taxonomy_ebooks_categories' );
 
 /**Changing the main query to display custom post types as well */
 
