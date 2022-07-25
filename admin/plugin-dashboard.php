@@ -43,15 +43,70 @@ if($response['result']){
     echo $response['message'];
 } */
 
-$user_id = 3;
- 
+/* $user_id = 3;
 $user_id = wp_delete_user($user_id);
  
 if ( is_wp_error( $user_id ) ) {
     echo 'The user is not deleted.';
 } else {
     echo 'The user is deleted.';
-}
+} */
+
+/* $username  = 'mynewuser';
+$password  = '12345';
+$website   = 'https://codoplex.com';
+$first_name = 'Junaid';
+$last_name = 'Hassan';
+$user_data = [
+    'user_login' => $username,
+    'user_pass'  => $password,
+    'user_url'   => $website,
+    'first_name' => $first_name,
+    'last_name' => $last_name
+];
+ 
+$user_id = wp_insert_user( $user_data );
+ 
+// success
+if ( ! is_wp_error( $user_id ) ) {
+    echo 'User created: ' . $user_id;
+} */
+
+/**
+ * Testing user meta functions
+ */
+
+/* $response = add_user_meta(
+    1,
+    'test_user_meta',
+    'Hello World!',
+    true
+);
+
+if(!$response){
+    echo 'The user meta is not added.';
+}else{
+    echo 'The user meta is added with ID: '. $response;
+} */
+
+/* $response = delete_user_meta(
+    1,
+    'test_user_meta',
+    'Hello World!'
+);
+
+if($response){
+    echo 'The user meta is successfully deleted.';
+}else{
+    echo 'The user meta is not deleted.';
+} */
+
+/**
+ * Testing roles and capabilities
+ */
+	
+$role = get_role( 'proof_reader' );
+var_dump($role);
 ?>
 
 <h2>Dashboard:</h2>
