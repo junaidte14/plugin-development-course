@@ -105,8 +105,8 @@ if($response){
  * Testing roles and capabilities
  */
 	
-$role = get_role( 'proof_reader' );
-var_dump($role);
+/* $role = get_role( 'proof_reader' );
+var_dump($role); */
 ?>
 
 <h2>Dashboard:</h2>

@@ -51,6 +51,6 @@ if ( is_admin() ) {
     include PLUGINPREFIX_DIR_PATH . 'admin/admin-core.php';
 }else{
     // code which will run only on frontend
-    
+    include PLUGINPREFIX_DIR_PATH . 'public/public-core.php';
 }
 
