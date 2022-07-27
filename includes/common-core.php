@@ -70,6 +70,8 @@ function pluginprefix_custom_box_html($post){
     //var_dump($post);
     $current_book_author = get_post_meta( $post->ID, '_pluginprefix_book_author', true );
 
+    $current_book_author_email = get_post_meta( $post->ID, '_pluginprefix_book_author_email', true );
+
     $current_book_type = get_post_meta( $post->ID, '_pluginprefix_book_type', true );
 
     $current_book_downloadable = get_post_meta( $post->ID, '_pluginprefix_book_downloadable', true );
@@ -78,6 +80,9 @@ function pluginprefix_custom_box_html($post){
     <label for="pluginprefix_book_author">Book Author Name:</label>
     <input name="pluginprefix_book_author" id="pluginprefix_book_author" value="<?php echo $current_book_author;?>" />
     <br><br>
+    <label for="pluginprefix_book_author_email">Book Author Email:</label>
+    <input name="pluginprefix_book_author_email" id="pluginprefix_book_author_email" value="<?php echo $current_book_author_email;?>" />
+    <p>Please enter a valid Email Address, otherwise it will not be saved.</p>
     <label for="pluginprefix_book_type">The book is available in</label>
     <select name="pluginprefix_book_type" id="pluginprefix_book_type">
         <option value="" <?php selected($current_book_type, "");?>>Select Option</option>
@@ -109,6 +114,16 @@ function pluginprefix_save_postdata( $post_id ) {
             '_pluginprefix_book_author',
             $_POST['pluginprefix_book_author']
         );
+    }
+
+    if ( array_key_exists( 'pluginprefix_book_author_email', $_POST ) ) {
+        if(is_email($_POST['pluginprefix_book_author_email'])){
+            update_post_meta(
+                $post_id,
+                '_pluginprefix_book_author_email',
+                $_POST['pluginprefix_book_author_email']
+            );
+        }
     }
 
     if ( array_key_exists( 'pluginprefix_book_type', $_POST ) ) {
