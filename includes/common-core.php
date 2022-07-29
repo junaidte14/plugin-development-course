@@ -61,7 +61,7 @@ add_action('pre_get_posts', 'pluginprefix_add_custom_post_types');
 //adding demo text using custom hook
 function pluginprefix_add_content_using_custom_hook(){
     ?>
-    <h2>This text is displayed using the custom hook.</h2>
+    <h2><?php esc_html_e('This text is displayed using the custom hook.', 'my-plugin');?></h2>
     <?php
 }
 add_action('pluginprefix_after_settings_page_html', 'pluginprefix_add_content_using_custom_hook');
@@ -77,11 +77,11 @@ function pluginprefix_custom_box_html($post){
     $current_book_downloadable = get_post_meta( $post->ID, '_pluginprefix_book_downloadable', true );
 
     ?>
-    <label for="pluginprefix_book_author">Book Author Name:</label>
-    <input name="pluginprefix_book_author" id="pluginprefix_book_author" value="<?php echo $current_book_author;?>" />
+    <label for="pluginprefix_book_author"><?php esc_html_e('Book Author Name:', 'my-plugin');?></label>
+    <input name="pluginprefix_book_author" id="pluginprefix_book_author" value="<?php echo esc_attr($current_book_author);?>" type="text" />
     <br><br>
     <label for="pluginprefix_book_author_email">Book Author Email:</label>
-    <input name="pluginprefix_book_author_email" id="pluginprefix_book_author_email" value="<?php echo $current_book_author_email;?>" />
+    <input name="pluginprefix_book_author_email" id="pluginprefix_book_author_email" type="email" value="<?php echo $current_book_author_email;?>" />
     <p>Please enter a valid Email Address, otherwise it will not be saved.</p>
     <label for="pluginprefix_book_type">The book is available in</label>
     <select name="pluginprefix_book_type" id="pluginprefix_book_type">
@@ -109,19 +109,21 @@ add_action('add_meta_boxes', 'pluginprefix_add_meta_box');
 function pluginprefix_save_postdata( $post_id ) {
     //var_dump($_POST['pluginprefix_book_downloadable']); die();
     if ( array_key_exists( 'pluginprefix_book_author', $_POST ) ) {
+        $book_author = sanitize_text_field($_POST['pluginprefix_book_author']);
         update_post_meta(
             $post_id,
             '_pluginprefix_book_author',
-            $_POST['pluginprefix_book_author']
+            $book_author
         );
     }
 
     if ( array_key_exists( 'pluginprefix_book_author_email', $_POST ) ) {
         if(is_email($_POST['pluginprefix_book_author_email'])){
+            $author_email = sanitize_email($_POST['pluginprefix_book_author_email']);
             update_post_meta(
                 $post_id,
                 '_pluginprefix_book_author_email',
-                $_POST['pluginprefix_book_author_email']
+                $author_email
             );
         }
     }

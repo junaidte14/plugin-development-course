@@ -18,7 +18,7 @@ function pluginprefix_append_edit_button($content){
 
     $post_id = get_the_ID();
     $edit_screen_url = admin_url('post.php?post='.$post_id.'&action=edit');
-    $content .= '<a href="'.$edit_screen_url.'">Edit</a>';
+    $content .= '<a href="'.esc_url($edit_screen_url).'">Edit</a>';
     return $content;
 }
 add_filter('the_content', 'pluginprefix_append_edit_button');
