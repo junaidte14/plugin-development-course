@@ -76,13 +76,15 @@ function pluginprefix_custom_box_html($post){
 
     $current_book_downloadable = get_post_meta( $post->ID, '_pluginprefix_book_downloadable', true );
 
+    $metabox_nonce = wp_create_nonce( 'pluginprefix_book_metabox' );
+
     ?>
     <label for="pluginprefix_book_author"><?php esc_html_e('Book Author Name:', 'my-plugin');?></label>
     <input name="pluginprefix_book_author" id="pluginprefix_book_author" value="<?php echo esc_attr($current_book_author);?>" type="text" />
     <br><br>
-    <label for="pluginprefix_book_author_email">Book Author Email:</label>
-    <input name="pluginprefix_book_author_email" id="pluginprefix_book_author_email" type="email" value="<?php echo $current_book_author_email;?>" />
-    <p>Please enter a valid Email Address, otherwise it will not be saved.</p>
+    <label for="pluginprefix_book_author_email"><?php esc_html_e('Book Author Email:', 'my-plugin');?></label>
+    <input name="pluginprefix_book_author_email" id="pluginprefix_book_author_email" type="email" value="<?php echo esc_attr($current_book_author_email);?>" />
+    <p><?php esc_html_e('Please enter a valid Email Address, otherwise it will not be saved.', 'my-plugin');?></p>
     <label for="pluginprefix_book_type">The book is available in</label>
     <select name="pluginprefix_book_type" id="pluginprefix_book_type">
         <option value="" <?php selected($current_book_type, "");?>>Select Option</option>
@@ -93,6 +95,7 @@ function pluginprefix_custom_box_html($post){
     <br><br>
     <label for="pluginprefix_book_downloadable">The Book is Downloadable?</label>
     <input type="checkbox" name="pluginprefix_book_downloadable" id="pluginprefix_book_downloadable" <?php if($current_book_downloadable == 'on'){echo 'checked="checked"';}?>/>
+    <input type="hidden" name="pluginprefix_book_metabox" id="pluginprefix_book_metabox" value="<?php echo esc_attr($metabox_nonce);?>" />
     <?php
 }
 
@@ -107,7 +110,11 @@ function pluginprefix_add_meta_box(){
 add_action('add_meta_boxes', 'pluginprefix_add_meta_box');
 
 function pluginprefix_save_postdata( $post_id ) {
-    //var_dump($_POST['pluginprefix_book_downloadable']); die();
+    //var_dump(wp_verify_nonce( $_POST['pluginprefix_book_metabox'], 'pluginprefix_book_metabox' )); die();
+    if ( !array_key_exists( 'pluginprefix_book_metabox', $_POST ) || !wp_verify_nonce( $_POST['pluginprefix_book_metabox'], 'pluginprefix_book_metabox' ) ) {
+        return;
+    }
+
     if ( array_key_exists( 'pluginprefix_book_author', $_POST ) ) {
         $book_author = sanitize_text_field($_POST['pluginprefix_book_author']);
         update_post_meta(

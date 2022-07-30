@@ -22,6 +22,18 @@ function pluginprefix_deactivate() {
 }
 register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 
+//enqueuing admin js file
+function pluginprefix_enqueue_admin_files(){
+    wp_enqueue_script(
+        'admin-script',
+        PLUGINPREFIX_DIR_URL . '/admin/js/admin.js',
+        array( 'jquery' ),
+        '1.0.0',
+        true
+    );
+}
+add_action( 'admin_enqueue_scripts', 'pluginprefix_enqueue_admin_files' );
+
 //Code for Menu Button
 
 function pluginprefix_menu_content() {

@@ -22,4 +22,16 @@ function pluginprefix_append_edit_button($content){
     return $content;
 }
 add_filter('the_content', 'pluginprefix_append_edit_button');
+
+//enqueuing frontend js file
+function pluginprefix_enqueue_public_files(){
+    wp_enqueue_script(
+        'public-script',
+        PLUGINPREFIX_DIR_URL . '/public/js/public.js',
+        array( 'jquery' ),
+        '1.0.0',
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'pluginprefix_enqueue_public_files' );
 ?>
