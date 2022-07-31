@@ -28,8 +28,17 @@ function pluginprefix_enqueue_admin_files(){
         'admin-script',
         PLUGINPREFIX_DIR_URL . '/admin/js/admin.js',
         array( 'jquery' ),
-        '1.0.0',
+        '1.0.1',
         true
+    );
+
+    wp_localize_script(
+        'admin-script',
+        'pluginprefix_ajax_obj', //pluginprefix_ajax_obj.nonce
+        array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'nonce'    => wp_create_nonce( 'pluginprefix_ajax_example' ),
+        )
     );
 }
 add_action( 'admin_enqueue_scripts', 'pluginprefix_enqueue_admin_files' );

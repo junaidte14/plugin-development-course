@@ -179,4 +179,26 @@ function pluginprefix_shortcode( $atts = [], $content = null) {
     return $output;
 }
 
+//demo ajax action callback function
+
+add_action( 'wp_ajax_pluginprefix_ajax_example', 'pluginprefix_ajax_handler' ); // action hook for logged in users
+add_action( 'wp_ajax_nopriv_pluginprefix_ajax_example', 'pluginprefix_ajax_handler' ); // action hook for logged out users
+ 
+/**
+ * Handles my AJAX request.
+ */
+function pluginprefix_ajax_handler() {
+    // Handle the ajax request here
+    check_ajax_referer( 'pluginprefix_ajax_example' );
+    //Task: Send the total number of books available in our custom post type
+    $args = array(
+        'post_type' => 'book',
+        'posts_per_page' => -1
+    );
+    $the_query = new WP_Query( $args );
+    $total_books = $the_query->post_count;
+    wp_send_json(esc_html($total_books));
+    wp_die(); // All ajax handlers die when finished
+}
+
 ?>

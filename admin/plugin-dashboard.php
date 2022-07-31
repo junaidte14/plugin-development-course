@@ -111,3 +111,6 @@ var_dump($role); */
 
 <h2>Dashboard:</h2>
 <p>This is our test plugin to learn WordPress plugin development.</p>
+
+<button id="get_total_books">Get Total Books</button>
+<p id="books_response"></p>
