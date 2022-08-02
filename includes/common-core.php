@@ -175,9 +175,35 @@ function pluginprefix_shortcode( $atts = [], $content = null) {
     if(!is_null($content)){
         $output .= apply_filters('the_content', $content);
     }
+    $output .= '<br><button id="get_total_books">Get Total Books</button>
+    <p id="books_response"></p>';
     $output .= '</div>';
     return $output;
 }
+
+// shortcode for user registration page
+
+//Defining custom shortcode
+add_shortcode('pluginprefix_register', 'pluginprefix_register_shortcode');
+function pluginprefix_register_shortcode( $atts = [], $content = null) {
+    $output = '<div class="register-shortcode-content">';
+    $output = '<p id="register-form-message"></p>';
+    $output .= '<input type="text" name="username" id="username" placeholder="Add username here..." /><br><br>';
+    $output .= '<input type="email" name="email" id="email" placeholder="Add email here..." /><br><br>';
+    $output .= '<input type="password" name="password" id="password" placeholder="Add password here..." /><br><br>';
+    $output .= '<input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm password here..." /><br><br>';
+    $output .= '<input type="submit" name="submit" id="register_form_submit" value="Submit" /><br><br>';
+    if(!is_null($content)){
+        $output .= apply_filters('register_shortcode_content', $content);
+    }
+    $output .= '</div>';
+    return $output;
+}
+
+add_filter('register_shortcode_content', function($content){
+    $content .= 'This text is displayed using custom filter hook';
+    return $content;
+});
 
 //demo ajax action callback function
 
@@ -198,6 +224,39 @@ function pluginprefix_ajax_handler() {
     $the_query = new WP_Query( $args );
     $total_books = $the_query->post_count;
     wp_send_json(esc_html($total_books));
+    wp_die(); // All ajax handlers die when finished
+}
+
+//user registration ajax handler function
+add_action( 'wp_ajax_pluginprefix_ajax_user_register', 'pluginprefix_ajax_register_user' ); // action hook for logged in users
+add_action( 'wp_ajax_nopriv_pluginprefix_ajax_user_register', 'pluginprefix_ajax_register_user' ); // action hook for logged out users
+ 
+/**
+ * Handles my AJAX request.
+ */
+function pluginprefix_ajax_register_user() {
+    // Handle the ajax request here
+    check_ajax_referer( 'pluginprefix_ajax_example' );
+    //Task: Register the user with the values received from the frontend
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $user_id = wp_create_user(
+        $username,
+        $password,
+        $email
+    );
+
+    $response = '';
+    if ( is_wp_error( $user_id ) ) {
+        $error_string = $user_id->get_error_message();
+        $response = 'There was an error creating the user. ' . $error_string;
+    }else{
+        $response = 'The user is successfully created.';
+    }
+
+    wp_send_json($response);
     wp_die(); // All ajax handlers die when finished
 }
 

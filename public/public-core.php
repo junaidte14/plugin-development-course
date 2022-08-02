@@ -32,6 +32,15 @@ function pluginprefix_enqueue_public_files(){
         '1.0.0',
         true
     );
+
+    wp_localize_script(
+        'public-script',
+        'pluginprefix_ajax_obj', //pluginprefix_ajax_obj.nonce
+        array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'nonce'    => wp_create_nonce( 'pluginprefix_ajax_example' ),
+        )
+    );
 }
 add_action( 'wp_enqueue_scripts', 'pluginprefix_enqueue_public_files' );
 ?>
