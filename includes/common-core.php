@@ -176,7 +176,7 @@ function pluginprefix_shortcode( $atts = [], $content = null) {
         $output .= apply_filters('the_content', $content);
     }
     $output .= '<br><button id="get_total_books">Get Total Books</button>
-    <p id="books_response"></p>';
+    <p id="books_response"></p><br><p>The following books count will be automatically updated!</p><h2 id="auto-books-count"></h2>';
     $output .= '</div>';
     return $output;
 }
@@ -259,5 +259,22 @@ function pluginprefix_ajax_register_user() {
     wp_send_json($response);
     wp_die(); // All ajax handlers die when finished
 }
+
+//testing heartbeat api
+function pluginprefix_receive_heartbeat( array $response, array $data ) {
+    
+    if( array_key_exists('get-books-count', $data) && $data['get-books-count'] == 'latest_books_count'){
+        $args = array(
+            'post_type' => 'book',
+            'posts_per_page' => -1
+        );
+        $the_query = new WP_Query( $args );
+        $total_books = $the_query->post_count;
+        $response['total_books'] = esc_html($total_books);
+    }
+
+    return $response;
+}
+add_filter( 'heartbeat_received', 'pluginprefix_receive_heartbeat', 10, 2 );
 
 ?>

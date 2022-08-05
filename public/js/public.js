@@ -36,4 +36,19 @@ jQuery(document).ready(function($){
             }
         );
     });
+
+    jQuery( document ).on( 'heartbeat-send', function ( event, data ) {
+        console.log('The send event is fired');
+        // Add additional data to Heartbeat data.
+        data['get-books-count'] = 'latest_books_count';
+    });
+
+    jQuery( document ).on( 'heartbeat-tick', function ( event, data ) {
+        console.log('The tick event is fired.');
+        if(!data['total_books']){
+            return;
+        }
+
+        $('#auto-books-count').html('The total number of books are: ' + data['total_books']);
+    });
 });
