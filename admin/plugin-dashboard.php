@@ -107,6 +107,16 @@ if($response){
 	
 /* $role = get_role( 'proof_reader' );
 var_dump($role); */
+
+$response = wp_remote_get( 'https://api.github.com/users/junaidte14', array(
+    'method' => 'GET'
+));
+$body     = wp_remote_retrieve_body( $response );
+$http_code = wp_remote_retrieve_response_code( $response );
+$last_modified = wp_remote_retrieve_header( $response, 'last-modified' );
+var_dump($last_modified);
+$headers = wp_remote_retrieve_headers($response);
+var_dump($headers);
 ?>
 
 <h2>Dashboard:</h2>
