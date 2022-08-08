@@ -108,15 +108,28 @@ if($response){
 /* $role = get_role( 'proof_reader' );
 var_dump($role); */
 
-$response = wp_remote_get( 'https://api.github.com/users/junaidte14', array(
-    'method' => 'GET'
-));
-$body     = wp_remote_retrieve_body( $response );
+delete_transient( 'pluginprefix_github_userinfo' );
+
+$response = get_transient( 'pluginprefix_github_userinfo' );
+var_dump($response);
+if ( false === $response ) {
+    // Transient expired, refresh the data
+    $response = wp_remote_get( 'https://api.github.com/users/junaidte14' );
+    set_transient( 'pluginprefix_github_userinfo', $response, 60 * 60 );
+}
+
+var_dump($response);
+
+/* $body     = wp_remote_retrieve_body( $response );
 $http_code = wp_remote_retrieve_response_code( $response );
 $last_modified = wp_remote_retrieve_header( $response, 'last-modified' );
 var_dump($last_modified);
 $headers = wp_remote_retrieve_headers($response);
 var_dump($headers);
+
+	
+$response_head = wp_remote_head( 'https://api.github.com/users/junaidte14' );
+var_dump($response_head); */
 ?>
 
 <h2>Dashboard:</h2>
