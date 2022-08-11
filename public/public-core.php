@@ -45,4 +45,5 @@ function pluginprefix_enqueue_public_files(){
     );
 }
 add_action( 'wp_enqueue_scripts', 'pluginprefix_enqueue_public_files' );
+
 ?>

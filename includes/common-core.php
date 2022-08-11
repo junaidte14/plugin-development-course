@@ -277,4 +277,18 @@ function pluginprefix_receive_heartbeat( array $response, array $data ) {
 }
 add_filter( 'heartbeat_received', 'pluginprefix_receive_heartbeat', 10, 2 );
 
+/**
+ * Adds a privacy policy statement.
+ */
+function pluginprefix_add_privacy_policy_content() {
+    if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+        return;
+    }
+    $content = '<p class="privacy-policy-tutorial">' . __( 'Testing privacy policy content for our plugin', 'my-plugin' ) . '</p>'
+            . '<strong class="privacy-policy-tutorial">' . __( 'Demo Text:', 'my-plugin' ) . '</strong> '
+            . '<p>' . __( 'Here you can add the privacy policy content related to your plugin.', 'my-plugin') . '</p>';
+    wp_add_privacy_policy_content( 'My Plugin', wp_kses_post( wpautop( $content, false ) ) );
+}
+ 
+add_action( 'admin_init', 'pluginprefix_add_privacy_policy_content' );
 ?>

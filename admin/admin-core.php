@@ -226,4 +226,116 @@ function pluginprefix_simple_role_caps() {
  
 // Add simple_role capabilities, priority must be after the initial role definition.
 add_action( 'init', 'pluginprefix_simple_role_caps', 11 );
+
+/**
+ * Export user meta for a user using the supplied email.
+ *
+ * @param string $email_address   email address to manipulate
+ * @param int    $page            pagination
+ *
+ * @return array
+ */
+function pluginprefix_export_user_data_by_email( $email_address, $page = 1 ) {
+    $export_items = array();
+ 
+    $user_data = get_user_by( 'email', $email_address );
+
+    if($user_data == false){
+        return;
+    }
+
+    $birthday = get_user_meta( $user_data->ID, 'birthday', true );
+ 
+    // Only add birthday data to the export if it is not empty.
+    if ( ! empty( $birthday ) ) {
+        // Most item IDs should look like postType-postID. If you don't have a post, comment or other ID to work with,
+        // use a unique value to avoid having this item's export combined in the final report with other items
+        // of the same id.
+        $item_id = "userbirthday-{$user_data->ID}";
+
+        // Core group IDs include 'comments', 'posts', etc. But you can add your own group IDs as needed
+        $group_id = 'user';
+
+        // Optional group label. Core provides these for core groups. If you define your own group, the first
+        // exporter to include a label will be used as the group label in the final exported report.
+        $group_label = __( 'User', 'my-plugin' );
+
+        // Plugins can add as many items in the item data array as they want.
+        $data = array(
+            array(
+                'name'  => __( 'User Birthday', 'my-plugin' ),
+                'value' => $birthday,
+            )
+        );
+
+        $export_items[] = array(
+            'group_id'    => $group_id,
+            'group_label' => $group_label,
+            'item_id'     => $item_id,
+            'data'        => $data,
+        );
+    }
+ 
+    // Tell core if we have more comments to work on still.
+    $done = true;
+    return array(
+        'data' => $export_items,
+        'done' => $done,
+    );
+}
+
+function pluginprefix_register_user_data_exporters( $exporters ) {
+    $exporters['my-plugin'] = array(
+        'exporter_friendly_name' => __( 'My Plugin Birthday Info', 'my-plugin' ),
+        'callback'               => 'pluginprefix_export_user_data_by_email',
+    );
+    return $exporters;
+}
+ 
+add_filter( 'wp_privacy_personal_data_exporters', 'pluginprefix_register_user_data_exporters' );
+
+/**
+ * Removes any stored location data from a user's comment meta for the supplied email address.
+ *
+ * @param string $email_address   email address to manipulate
+ * @param int    $page            pagination
+ *
+ * @return array
+ */
+function pluginprefix_remove_location_meta_from_comments_for_email( $email_address, $page = 1 ) {
+ 
+    $user_data = get_user_by( 'email', $email_address );
+
+    if($user_data == false){
+        return;
+    }
+
+    $birthday = get_user_meta( $user_data->ID, 'birthday', true );
+
+    $items_removed = false;
+ 
+    if ( ! empty( $birthday ) ) {
+        delete_user_meta( $user_data->ID, 'birthday' );
+        $items_removed = true;
+    }
+ 
+    // Tell core if we have more comments to work on still
+    $done = true;
+    return array(
+        'items_removed'  => $items_removed,
+        'items_retained' => false, // always false in this example
+        'messages'       => array(), // no messages in this example
+        'done'           => $done,
+    );
+}
+
+function pluginprefix_register_privacy_erasers( $erasers ) {
+    $erasers['my-plugin'] = array(
+        'eraser_friendly_name' => __( 'My Plugin', 'my-plugin' ),
+        'callback'             => 'pluginprefix_remove_location_meta_from_comments_for_email',
+    );
+    return $erasers;
+}
+ 
+add_filter( 'wp_privacy_personal_data_erasers', 'pluginprefix_register_privacy_erasers' );
 ?>
