@@ -291,4 +291,28 @@ function pluginprefix_add_privacy_policy_content() {
 }
  
 add_action( 'admin_init', 'pluginprefix_add_privacy_policy_content' );
+
+//testing wp-cron api
+add_filter( 'cron_schedules', 'pluginprefix_add_cron_interval' );
+function pluginprefix_add_cron_interval( $schedules ) { 
+    $schedules['sixty_five_seconds'] = array(
+        'interval' => 65,
+        'display'  => esc_html__( 'Every Sixty Five Seconds' ), 
+    );
+    return $schedules;
+}
+
+add_action( 'pluginprefix_cron_hook', 'pluginprefix_cron_exec' );
+function pluginprefix_cron_exec(){
+    // Create blog post every 65 seconds
+    $my_post = array(
+        'post_title'    => wp_strip_all_tags( 'Testing Cron Functionality'),
+        'post_content'  => 'Testing WP-Cron API',
+        'post_status'   => 'publish',
+        'post_author'   => 1
+    );
+    
+    // Insert the post into the database
+    wp_insert_post( $my_post );
+}
 ?>
