@@ -5,7 +5,7 @@
  */
 function pluginprefix_activate() { 
     // Trigger our function that registers the custom post type plugin.
-    pluginprefix_setup_post_type(); 
+    //pluginprefix_setup_post_type(); 
     // Clear the permalinks after the post type has been registered.
     flush_rewrite_rules(); 
 }
@@ -19,6 +19,10 @@ function pluginprefix_deactivate() {
     unregister_post_type( 'book' );
     // Clear the permalinks to remove our post type's rules from the database.
     flush_rewrite_rules();
+
+    //unschedule the events
+    $timestamp = wp_next_scheduled( 'pluginprefix_cron_hook' );
+    wp_unschedule_event( $timestamp, 'pluginprefix_cron_hook' );
 }
 register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 

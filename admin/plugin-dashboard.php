@@ -131,9 +131,15 @@ var_dump($headers);
 $response_head = wp_remote_head( 'https://api.github.com/users/junaidte14' );
 var_dump($response_head); */
 
-if ( ! wp_next_scheduled( 'pluginprefix_cron_hook' ) ) {
+/* if ( ! wp_next_scheduled( 'pluginprefix_cron_hook' ) ) {
     wp_schedule_event( time(), 'sixty_five_seconds', 'pluginprefix_cron_hook' );
 }
+
+$scheduled_events = _get_cron_array();
+var_dump($scheduled_events); */
+
+$schedules = wp_get_schedules();
+var_dump($schedules);
 ?>
 
 <h2>Dashboard:</h2>
