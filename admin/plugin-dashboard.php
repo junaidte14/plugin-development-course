@@ -138,12 +138,12 @@ var_dump($response_head); */
 $scheduled_events = _get_cron_array();
 var_dump($scheduled_events); */
 
-$schedules = wp_get_schedules();
-var_dump($schedules);
+/* $schedules = wp_get_schedules();
+var_dump($schedules); */
 ?>
 
-<h2>Dashboard:</h2>
-<p>This is our test plugin to learn WordPress plugin development.</p>
+<h2><?php _e( 'Dashboard:' , 'my-plugin'); ?></h2>
+<p><?php _e( 'This is our test plugin to learn WordPress plugin development.' , 'my-plugin'); ?></p>
 
-<button id="get_total_books">Get Total Books</button>
+<button id="get_total_books"><?php _e( 'Get Total Books' , 'my-plugin'); ?></button>
 <p id="books_response"></p>
