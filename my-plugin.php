@@ -43,6 +43,10 @@ if(!defined('PLUGINPREFIX_URL')){
     define('PLUGINPREFIX_URL', plugins_url('', __FILE__));
 }
 
+if(!defined('PLUGINPREFIX_LANG_PATH')){
+    define('PLUGINPREFIX_LANG_PATH', dirname( plugin_basename( __FILE__ ) ) . '/languages');
+}
+
 // file containing the core common functionality
 include PLUGINPREFIX_DIR_PATH . 'includes/common-core.php';
 

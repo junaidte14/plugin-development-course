@@ -142,8 +142,40 @@ var_dump($scheduled_events); */
 var_dump($schedules); */
 ?>
 
-<h2><?php _e( 'Dashboard:' , 'my-plugin'); ?></h2>
-<p><?php _e( 'This is our test plugin to learn WordPress plugin development.' , 'my-plugin'); ?></p>
+<h2><?php esc_html_e( 'Dashboard:' , 'my-plugin'); ?></h2>
+<p><?php esc_html_e( 'This is our test plugin to learn WordPress plugin development.' , 'my-plugin'); ?></p>
 
+<p>
+    <?php 
+    $city = 'Mandi Bahauddin';
+    /* translators: we are translating this string */
+    printf(
+        esc_html__( 'Your city is %s.', 'my-plugin' ),
+        $city
+    );
+    ?>
+</p>
+
+<p>
+    <?php
+    printf(
+        _n(
+            '%s comment',
+            '%s comments',
+            get_comments_number(1),
+            'my-plugin'
+        ),
+        number_format_i18n( get_comments_number(1) )
+    );
+    ?>
+</p>
+
+<p>
+    <?php
+    _ex( 'Post', 'noun', 'my-plugin' );
+    echo '<br>';
+    _ex( 'Post', 'verb', 'my-plugin' );
+    ?>
+</p>
 <button id="get_total_books"><?php _e( 'Get Total Books' , 'my-plugin'); ?></button>
 <p id="books_response"></p>

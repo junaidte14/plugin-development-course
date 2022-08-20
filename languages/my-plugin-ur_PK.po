@@ -3,43 +3,23 @@
 # This file is distributed under the GNU General Public License v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Blank "
-"WordPress Pot v1.0.0\n"
-"Report-Msgid-Bugs-To: "
-"Translator Name "
-"<translations@example."
-"com>\n"
-"POT-Creation-Date: "
-"2022-08-15 11:03+0500\n"
+"Project-Id-Version: Blank WordPress Pot v1.0.0\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2022-08-20 12:20+0500\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Junaid "
-"Hassan <junaidte14@gmail."
-"com>\n"
-"Language-Team: Your Team "
-"<translations@example."
-"com>\n"
+"Last-Translator: Junaid Hassan <junaidte14@gmail.com>\n"
+"Language-Team: Your Team <translations@example.com>\n"
 "Language: ur_PK\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; "
-"charset=UTF-8\n"
-"Content-Transfer-Encoding: "
-"8bit\n"
-"Plural-Forms: nplurals=2; "
-"plural=n != 1;\n"
-"X-Textdomain-Support: yesX-"
-"Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: "
-"UTF-8\n"
-"X-Poedit-KeywordsList: __;"
-"_e;esc_html_e;"
-"esc_html_x:1,2c;esc_html__;"
-"esc_attr_e;esc_attr_x:1,2c;"
-"esc_attr__;_ex:1,2c;"
-"_nx:4c,1,2;_nx_noop:4c,1,2;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;"
-"__ngettext:1,2;"
-"__ngettext_noop:1,2;_c,"
-"_nc:4c,1,2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -53,11 +33,8 @@ msgid "User Birthday"
 msgstr "صارف کی سالگرہ"
 
 #: admin/admin-core.php:293
-msgid ""
-"My Plugin Birthday Info"
-msgstr ""
-"میرا پلگ ان کی سالگرہ کی "
-"معلومات"
+msgid "My Plugin Birthday Info"
+msgstr "میرا پلگ ان کی سالگرہ کی معلومات"
 
 #: admin/admin-core.php:338
 msgid "My Plugin"
@@ -68,16 +45,32 @@ msgid "Dashboard:"
 msgstr "ڈیش بورڈ:"
 
 #: admin/plugin-dashboard.php:146
-msgid ""
-"This is our test plugin to "
-"learn WordPress plugin "
-"development."
-msgstr ""
-"یہ ورڈپریس پلگ ان ڈویلپمنٹ "
-"سیکھنے کے لیے ہمارا ٹیسٹ "
-"پلگ ان ہے."
+msgid "This is our test plugin to learn WordPress plugin development."
+msgstr "یہ ورڈپریس پلگ ان ڈویلپمنٹ سیکھنے کے لیے ہمارا ٹیسٹ پلگ ان ہے."
 
-#: admin/plugin-dashboard.php:148
+#: admin/plugin-dashboard.php:153
+#, php-format
+msgid "Your city is %s."
+msgstr ""
+
+#: admin/plugin-dashboard.php:163
+#, php-format
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s تبصرہ"
+msgstr[1] "%s تبصرہ"
+
+#: admin/plugin-dashboard.php:175
+msgctxt "noun"
+msgid "Post"
+msgstr ""
+
+#: admin/plugin-dashboard.php:177
+msgctxt "verb"
+msgid "Post"
+msgstr ""
+
+#: admin/plugin-dashboard.php:180
 msgid "Get Total Books"
 msgstr "کل کتابیں حاصل کریں"
 
@@ -85,107 +78,92 @@ msgstr "کل کتابیں حاصل کریں"
 msgid "Settings Saved"
 msgstr ""
 
-#: includes/common-core.php:9
+#: includes/common-core.php:18
 msgid "Books"
 msgstr "کتابیں"
 
-#: includes/common-core.php:10
+#: includes/common-core.php:19
 msgid "Book"
 msgstr "کتاب"
 
-#: includes/common-core.php:11
-#: includes/common-core.php:12
+#: includes/common-core.php:20 includes/common-core.php:21
 msgid "Add New Book"
-msgstr ""
-"نئی پوسٹ ٹیبل شامل کریں"
+msgstr "نئی پوسٹ ٹیبل شامل کریں"
 
-#: includes/common-core.php:27
-msgctxt "pluginprefix"
+#: includes/common-core.php:36
+msgctxt "my-plugin"
 msgid "Book Categories"
 msgstr ""
 
-#: includes/common-core.php:28
-msgctxt "pluginprefix"
+#: includes/common-core.php:37
+msgctxt "my-plugin"
 msgid "Book Category"
 msgstr ""
 
-#: includes/common-core.php:29
-msgid ""
-"Search Book Categories"
+#: includes/common-core.php:38
+msgid "Search Book Categories"
 msgstr ""
 
-#: includes/common-core.php:30
+#: includes/common-core.php:39
 msgid "All Book Categories"
 msgstr ""
 
-#: includes/common-core.php:31
+#: includes/common-core.php:40
 msgid "Parent Book Category"
 msgstr ""
 
-#: includes/common-core.php:32
+#: includes/common-core.php:41
 msgid "Parent Book Category:"
 msgstr ""
 
-#: includes/common-core.php:33
+#: includes/common-core.php:42
 msgid "Edit Book Category"
 msgstr ""
 
-#: includes/common-core.php:34
+#: includes/common-core.php:43
 msgid "Update Book Category"
 msgstr ""
 
-#: includes/common-core.php:35
+#: includes/common-core.php:44
 msgid "Add New Book Category"
 msgstr ""
 
-#: includes/common-core.php:36
-msgid ""
-"New Book Category Name"
+#: includes/common-core.php:45
+msgid "New Book Category Name"
 msgstr ""
 
-#: includes/common-core.php:37
+#: includes/common-core.php:46
 msgid "Book Category"
 msgstr ""
 
-#: includes/common-core.php:64
-msgid ""
-"This text is displayed "
-"using the custom hook."
+#: includes/common-core.php:73
+msgid "This text is displayed using the custom hook."
 msgstr ""
 
-#: includes/common-core.php:82
+#: includes/common-core.php:91
 msgid "Book Author Name:"
 msgstr ""
 
-#: includes/common-core.php:85
+#: includes/common-core.php:94
 msgid "Book Author Email:"
 msgstr ""
 
-#: includes/common-core.php:87
-msgid ""
-"Please enter a valid Email "
-"Address, otherwise it will "
-"not be saved."
+#: includes/common-core.php:96
+msgid "Please enter a valid Email Address, otherwise it will not be saved."
 msgstr ""
 
-#: includes/common-core.php:287
-msgid ""
-"Testing privacy policy "
-"content for our plugin"
+#: includes/common-core.php:296
+msgid "Testing privacy policy content for our plugin"
 msgstr ""
 
-#: includes/common-core.php:288
+#: includes/common-core.php:297
 msgid "Demo Text:"
 msgstr ""
 
-#: includes/common-core.php:289
-msgid ""
-"Here you can add the "
-"privacy policy content "
-"related to your plugin."
+#: includes/common-core.php:298
+msgid "Here you can add the privacy policy content related to your plugin."
 msgstr ""
 
-#: includes/common-core.php:300
-msgid ""
-"Every Sixty Five Seconds"
+#: includes/common-core.php:309
+msgid "Every Sixty Five Seconds"
 msgstr ""

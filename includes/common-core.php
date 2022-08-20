@@ -1,15 +1,23 @@
 <?php
 
 /**
+ * Managing the translation from plugin folder
+ */
+add_action( 'init', 'pluginprefix_load_textdomain' );
+function pluginprefix_load_textdomain() {
+    load_plugin_textdomain( 'my-plugin', false, PLUGINPREFIX_LANG_PATH ); 
+}
+
+/**
  * Register the "book" custom post type
  */
 function pluginprefix_setup_post_type() {
     $post_type_arguments = array(
         'labels'      => array(
-            'name'          => __('Books', 'pluginprefix'),
-            'singular_name' => __('Book', 'pluginprefix'),
-            'add_new' => __('Add New Book', 'pluginprefix'),
-            'add_new_item' => __('Add New Book', 'pluginprefix'),
+            'name'          => __('Books', 'my-plugin'),
+            'singular_name' => __('Book', 'my-plugin'),
+            'add_new' => __('Add New Book', 'my-plugin'),
+            'add_new_item' => __('Add New Book', 'my-plugin'),
         ),
         'public'      => true,
         'has_archive' => true,
@@ -24,17 +32,17 @@ add_action( 'init', 'pluginprefix_setup_post_type' );
 
 function pluginprefix_register_taxonomy_ebooks_categories() {
     $labels = array(
-        'name'              => _x( 'Book Categories', 'pluginprefix' ),
-        'singular_name'     => _x( 'Book Category', 'pluginprefix' ),
-        'search_items'      => __( 'Search Book Categories' ),
-        'all_items'         => __( 'All Book Categories' ),
-        'parent_item'       => __( 'Parent Book Category' ),
-        'parent_item_colon' => __( 'Parent Book Category:' ),
-        'edit_item'         => __( 'Edit Book Category' ),
-        'update_item'       => __( 'Update Book Category' ),
-        'add_new_item'      => __( 'Add New Book Category' ),
-        'new_item_name'     => __( 'New Book Category Name' ),
-        'menu_name'         => __( 'Book Category' ),
+        'name'              => _x( 'Book Categories', 'my-plugin' ),
+        'singular_name'     => _x( 'Book Category', 'my-plugin' ),
+        'search_items'      => __( 'Search Book Categories', 'my-plugin' ),
+        'all_items'         => __( 'All Book Categories', 'my-plugin' ),
+        'parent_item'       => __( 'Parent Book Category', 'my-plugin' ),
+        'parent_item_colon' => __( 'Parent Book Category:', 'my-plugin' ),
+        'edit_item'         => __( 'Edit Book Category', 'my-plugin' ),
+        'update_item'       => __( 'Update Book Category', 'my-plugin' ),
+        'add_new_item'      => __( 'Add New Book Category', 'my-plugin' ),
+        'new_item_name'     => __( 'New Book Category Name', 'my-plugin' ),
+        'menu_name'         => __( 'Book Category', 'my-plugin' ),
     );
     $args   = array(
         'hierarchical'      => true, // make it hierarchical (like categories)
